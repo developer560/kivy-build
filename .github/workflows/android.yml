@@ -34,6 +34,12 @@ jobs:
           yes | $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/.buildozer/android/platform/android-sdk \
             "platform-tools" "platforms;android-31" "build-tools;31.0.0"
 
+      - name: Fix Buildozer's sdkmanager path expectation
+        run: |
+          mkdir -p $HOME/.buildozer/android/platform/android-sdk/tools/bin
+          ln -s $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager \
+                $HOME/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager
+
       - name: Build APK
         env:
           ANDROID_SDK_ROOT: ${{ github.workspace }}/.buildozer/android/platform/android-sdk
